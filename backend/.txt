@@ -1,0 +1,38 @@
+backend/
+├── config/
+│   └── db.js                  → MongoDB connection
+│
+├── models/
+│   ├── User.js
+│   ├── HrPost.js
+│   ├── CommunityPost.js
+│   ├── Comment.js
+│   ├── Like.js
+│   ├── Save.js
+│   └── Reveal.js
+│
+├── controllers/
+│   ├── auth.controller.js     → register, login, logout
+│   ├── hrpost.controller.js   → create, get, delete hr posts
+│   ├── community.controller.js→ create, get, delete community posts
+│   ├── comment.controller.js  → add, get, delete comments
+│   ├── like.controller.js     → like, unlike
+│   ├── save.controller.js     → save, unsave, update status
+│   ├── reveal.controller.js   → reveal hr number
+│   └── user.controller.js     → get profile, update profile
+│
+├── routes/
+│   ├── auth.routes.js
+│   ├── hrpost.routes.js
+│   ├── community.routes.js
+│   ├── comment.routes.js
+│   ├── like.routes.js
+│   ├── save.routes.js
+│   ├── reveal.routes.js
+│   └── user.routes.js
+│
+├── middleware/
+│   └── auth.middleware.js     → JWT token verification
+│
+├── .env
+└── index.js
