@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const session = require("express-session");
+const passport = require("./config/passport");
 const connectDB = require("./config/db");
 
 dotenv.config();
@@ -15,7 +17,21 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
-// Routes - will uncomment as we build them
+
+// Session middleware (must be before routes)
+app.use(
+  session({
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// Passport middleware (must be before routes)
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
 const authRoutes = require("./routes/auth.routes");
 const hrpostRoutes = require("./routes/hrpost.routes");
 const communityRoutes = require("./routes/community.routes");

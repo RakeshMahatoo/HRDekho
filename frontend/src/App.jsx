@@ -13,24 +13,32 @@ import Community from "./pages/Community";
 import CreateCommunityPost from "./pages/CreateCommunityPost";
 import Profile from "./pages/Profile";
 import CommunityPostDetail from "./pages/CommunityPostDetail";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import GoogleAuthSuccess from "./pages/GoogleAuthSuccess";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/google-auth" element={<GoogleAuthSuccess />} />
 
-          <Route
-            path="/feed"
-            element={
-              <ProtectedRoute>
-                <Feed />
-              </ProtectedRoute>
-            }
-          />
+          {/* Public browsing routes */}
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/post/hr/:id" element={<PostDetail />} />
+          <Route path="/companies" element={<Companies />} />
+          <Route path="/companies/:companyName" element={<CompanyDetail />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/post/community/:id" element={<CommunityPostDetail />} />
 
+          {/* Protected routes — login required */}
           <Route
             path="/create-post"
             element={
@@ -39,52 +47,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          <Route
-            path="/post/hr/:id"
-            element={
-              <ProtectedRoute>
-                <PostDetail />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/companies"
-            element={
-              <ProtectedRoute>
-                <Companies />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/companies/:companyName"
-            element={
-              <ProtectedRoute>
-                <CompanyDetail />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/saved"
-            element={
-              <ProtectedRoute>
-                <Saved />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/community"
-            element={
-              <ProtectedRoute>
-                <Community />
-              </ProtectedRoute>
-            }
-          />
-
           <Route
             path="/community/create"
             element={
@@ -93,7 +55,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="/saved"
+            element={
+              <ProtectedRoute>
+                <Saved />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/profile"
             element={
@@ -103,16 +72,7 @@ function App() {
             }
           />
 
-          <Route
-            path="/post/community/:id"
-            element={
-              <ProtectedRoute>
-                <CommunityPostDetail />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route path="/" element={<Navigate to="/feed" replace />} />
+         <Route path="/" element={<Landing />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

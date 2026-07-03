@@ -62,6 +62,16 @@ const Login = () => {
             />
           </div>
 
+          <div style={{ textAlign: "right" }}>
+            <Link
+              to="/forgot-password"
+              className="text-sm"
+              style={{ color: "#60A5FA" }}
+            >
+              Forgot password?
+            </Link>
+          </div>
+
           <button
             type="submit"
             disabled={loading}
@@ -70,6 +80,35 @@ const Login = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 12, margin: "20px 0" }}>
+          <div style={{ flex: 1, height: 1, background: "#374151" }} />
+          <span style={{ fontSize: 13, color: "#9CA3AF" }}>or</span>
+          <div style={{ flex: 1, height: 1, background: "#374151" }} />
+        </div>
+
+        <a
+          href="http://localhost:5000/api/auth/google"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 10,
+            width: "100%",
+            padding: "10px",
+            border: "1px solid #374151",
+            borderRadius: 8,
+            fontSize: 14,
+            fontWeight: 500,
+            color: "#E5E7EB",
+            textDecoration: "none",
+            background: "#1F2937",
+            cursor: "pointer",
+          }}
+        >
+          <img src="https://www.google.com/favicon.ico" width={18} height={18} alt="Google" />
+          Continue with Google
+        </a>
 
         <p className="text-sm text-gray-400 mt-4 text-center">
           Don't have an account?{" "}

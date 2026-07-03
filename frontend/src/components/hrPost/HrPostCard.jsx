@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import api from "../../api/axios";
 
 const HrPostCard = ({ post }) => {
+  const { user } = useAuth();
   const [revealed, setRevealed] = useState(false);
   const [phone, setPhone] = useState(null);
   const [likesCount, setLikesCount] = useState(post.likesCount);
@@ -11,6 +13,10 @@ const HrPostCard = ({ post }) => {
 
   const handleReveal = async (e) => {
     e.stopPropagation();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     try {
       const res = await api.post(`/reveals/${post._id}`);
       setPhone(res.data.hrPhone);
@@ -22,6 +28,10 @@ const HrPostCard = ({ post }) => {
 
   const handleLike = async (e) => {
     e.stopPropagation();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     try {
       const res = await api.post(`/likes/hr/${post._id}`);
       setLiked(res.data.liked);
@@ -77,7 +87,10 @@ const HrPostCard = ({ post }) => {
         className="flex items-center justify-between rounded-xl px-3 py-2.5 mb-3"
         style={{ background: "var(--surface-2)" }}
       >
-        <span className="text-sm font-mono" style={{ color: revealed ? "var(--accent)" : "var(--text-dim)" }}>
+        <span
+          className="text-sm font-mono"
+          style={{ color: revealed ? "var(--accent)" : "var(--text-dim)" }}
+        >
           {revealed ? phone : "•••• •• ••••"}
         </span>
         {!revealed && (
@@ -86,7 +99,7 @@ const HrPostCard = ({ post }) => {
             className="text-xs font-medium px-3 py-1 rounded-lg transition"
             style={{ background: "var(--warn-dim)", color: "var(--warn)" }}
           >
-            Reveal number
+            {user ? "Reveal number" : "Login to reveal"}
           </button>
         )}
       </div>
