@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const {
   register,
-  login,
+  login, 
   getMe,
   forgotPassword,
   resetPassword,

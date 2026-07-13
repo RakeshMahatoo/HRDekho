@@ -27,7 +27,7 @@ const CommunityPostCard = ({ post }) => {
         <img
           src={url}
           alt="post media"
-          className="w-full rounded-xl mb-3 object-cover max-h-72"
+          className="mb-3 max-h-72 w-full rounded-xl border border-slate-200 object-cover"
         />
       );
     }
@@ -37,7 +37,7 @@ const CommunityPostCard = ({ post }) => {
         <video
           src={url}
           controls
-          className="w-full rounded-xl mb-3 max-h-72"
+          className="mb-3 max-h-72 w-full rounded-xl border border-slate-200"
         />
       );
     }
@@ -51,24 +51,16 @@ const CommunityPostCard = ({ post }) => {
       return (
         <div
           onClick={handleResumeClick}
-          className="flex items-center gap-3 rounded-xl px-4 py-3 mb-3 transition cursor-pointer"
-          style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
+          className="mb-3 flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 transition hover:border-indigo-300 hover:bg-indigo-50/50"
         >
-          <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0"
-            style={{ background: "#FF525220", color: "#FF5252" }}
-          >
+          <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-rose-50 text-sm font-bold text-rose-600">
             PDF
           </div>
           <div>
-            <p className="text-sm font-medium" style={{ color: "var(--text)" }}>
-              Resume
-            </p>
-            <p className="text-xs" style={{ color: "var(--text-dim)" }}>
-              Click to view
-            </p>
+            <p className="text-sm font-medium text-slate-900">Resume</p>
+            <p className="text-xs text-slate-400">Click to view</p>
           </div>
-          <span className="ml-auto text-xs" style={{ color: "var(--accent)" }}>
+          <span className="ml-auto text-xs font-medium text-indigo-600">
             Download →
           </span>
         </div>
@@ -81,46 +73,34 @@ const CommunityPostCard = ({ post }) => {
   return (
     <div
       onClick={() => navigate(`/post/community/${post._id}`)}
-      className="rounded-2xl p-4 mb-4 cursor-pointer transition"
-      style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--accent)")}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
+      className="group mb-4 cursor-pointer rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-200 hover:border-indigo-300 hover:shadow-md hover:shadow-indigo-50"
     >
-      <div className="flex items-center gap-3 mb-3">
-        <div
-          className="w-9 h-9 rounded-full flex items-center justify-center font-display font-semibold text-sm flex-shrink-0"
-          style={{ background: "var(--accent-dim)", color: "var(--accent)" }}
-        >
+      <div className="mb-3 flex items-center gap-3">
+        <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-indigo-50 text-sm font-semibold text-indigo-600">
           {post.postedBy?.name?.slice(0, 1).toUpperCase()}
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <p className="text-sm font-medium" style={{ color: "var(--text)" }}>
+            <p className="text-sm font-medium text-slate-900">
               {post.postedBy?.name}
             </p>
             {post.postedBy?.openToWork && (
-              <span
-                className="text-xs px-2 py-0.5 rounded-full"
-                style={{ background: "#5EEAD420", color: "var(--accent)" }}
-              >
+              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-600">
                 Open to work
               </span>
             )}
           </div>
-          <p className="text-xs" style={{ color: "var(--text-dim)" }}>
+          <p className="text-xs text-slate-400">
             {new Date(post.createdAt).toLocaleDateString()}
           </p>
         </div>
-        <span
-          className="text-xs px-2 py-0.5 rounded-full capitalize"
-          style={{ background: "var(--surface-2)", color: "var(--text-dim)" }}
-        >
+        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs capitalize text-slate-500">
           {post.type}
         </span>
       </div>
 
       {post.text && (
-        <p className="text-sm leading-relaxed mb-3" style={{ color: "var(--text)" }}>
+        <p className="mb-3 text-sm leading-relaxed text-slate-700">
           {post.text}
         </p>
       )}
@@ -128,12 +108,11 @@ const CommunityPostCard = ({ post }) => {
       {renderMedia()}
 
       {post.tags?.length > 0 && (
-        <div className="flex gap-1.5 flex-wrap mb-3">
+        <div className="mb-3 flex flex-wrap gap-1.5">
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-0.5 rounded-full"
-              style={{ background: "var(--accent-dim)", color: "var(--accent)" }}
+              className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-600"
             >
               #{tag}
             </span>
@@ -141,11 +120,12 @@ const CommunityPostCard = ({ post }) => {
         </div>
       )}
 
-      <div className="pt-2" style={{ borderTop: "1px solid var(--border)" }}>
+      <div className="border-t border-slate-100 pt-3">
         <button
           onClick={handleLike}
-          className="text-xs flex items-center gap-1.5"
-          style={{ color: liked ? "var(--accent)" : "var(--text-dim)" }}
+          className={`flex items-center gap-1.5 text-xs transition ${
+            liked ? "text-rose-500" : "text-slate-400 hover:text-slate-600"
+          }`}
         >
           ♥ {likesCount}
         </button>

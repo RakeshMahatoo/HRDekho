@@ -63,43 +63,28 @@ const Profile = () => {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
 
       <div className="max-w-xl mx-auto px-4 py-8">
-
         {/* Profile card */}
-        <div
-          className="rounded-2xl p-6 mb-6"
-          style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
-        >
+        <div className="rounded-2xl p-6 mb-6 bg-white border border-slate-200 shadow-sm">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-4">
-              <div
-                className="w-14 h-14 rounded-full flex items-center justify-center font-display font-bold text-xl flex-shrink-0"
-                style={{ background: "var(--accent-dim)", color: "var(--accent)" }}
-              >
+              <div className="w-14 h-14 rounded-full flex items-center justify-center font-display font-bold text-xl flex-shrink-0 bg-indigo-50 text-indigo-600">
                 {user?.name?.slice(0, 1).toUpperCase()}
               </div>
               <div>
-                <h1 className="font-display text-lg font-semibold" style={{ color: "var(--text)" }}>
+                <h1 className="font-display text-lg font-semibold text-slate-900">
                   {user?.name}
                 </h1>
-                <p className="text-sm" style={{ color: "var(--text-dim)" }}>
-                  {user?.email}
-                </p>
+                <p className="text-sm text-slate-500">{user?.email}</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <span
-                    className="text-xs px-2 py-0.5 rounded-full capitalize"
-                    style={{ background: "var(--accent-dim)", color: "var(--accent)" }}
-                  >
+                  <span className="text-xs px-2 py-0.5 rounded-full capitalize bg-indigo-50 text-indigo-600">
                     {user?.plan}
                   </span>
                   {user?.openToWork && (
-                    <span
-                      className="text-xs px-2 py-0.5 rounded-full"
-                      style={{ background: "#5EEAD420", color: "var(--accent)" }}
-                    >
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">
                       Open to work
                     </span>
                   )}
@@ -108,44 +93,38 @@ const Profile = () => {
             </div>
             <button
               onClick={() => setEditMode(!editMode)}
-              className="text-xs px-3 py-1.5 rounded-full transition"
-              style={{ background: "var(--surface-2)", color: "var(--text-dim)", border: "1px solid var(--border)" }}
+              className="text-xs px-3 py-1.5 rounded-full transition bg-slate-50 text-slate-500 border border-slate-200 hover:bg-slate-100"
             >
               {editMode ? "Cancel" : "Edit"}
             </button>
           </div>
 
           <div className="grid grid-cols-3 gap-3 text-center mb-4">
-            <div className="rounded-xl py-3" style={{ background: "var(--surface-2)" }}>
-              <p className="font-display font-semibold text-lg" style={{ color: "var(--text)" }}>
+            <div className="rounded-xl py-3 bg-slate-50">
+              <p className="font-display font-semibold text-lg text-slate-900">
                 {hrPosts.length}
               </p>
-              <p className="text-xs" style={{ color: "var(--text-dim)" }}>HR posts</p>
+              <p className="text-xs text-slate-500">HR posts</p>
             </div>
-            <div className="rounded-xl py-3" style={{ background: "var(--surface-2)" }}>
-              <p className="font-display font-semibold text-lg" style={{ color: "var(--text)" }}>
+            <div className="rounded-xl py-3 bg-slate-50">
+              <p className="font-display font-semibold text-lg text-slate-900">
                 {communityPosts.length}
               </p>
-              <p className="text-xs" style={{ color: "var(--text-dim)" }}>Posts</p>
+              <p className="text-xs text-slate-500">Posts</p>
             </div>
-            <div className="rounded-xl py-3" style={{ background: "var(--surface-2)" }}>
-              <p className="font-display font-semibold text-lg" style={{ color: "var(--text)" }}>
+            <div className="rounded-xl py-3 bg-slate-50">
+              <p className="font-display font-semibold text-lg text-slate-900">
                 {user?.revealsLeft === 999999 ? "∞" : user?.revealsLeft}
               </p>
-              <p className="text-xs" style={{ color: "var(--text-dim)" }}>Reveals left</p>
+              <p className="text-xs text-slate-500">Reveals left</p>
             </div>
           </div>
 
           {/* Bio display */}
           {user?.bio && !editMode && (
-            <div
-              className="pt-4 mt-2"
-              style={{ borderTop: "1px solid var(--border)" }}
-            >
-              <p className="text-xs font-medium mb-1.5" style={{ color: "var(--text-dim)" }}>
-                About
-              </p>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--text)" }}>
+            <div className="pt-4 mt-2 border-t border-slate-200">
+              <p className="text-xs font-medium mb-1.5 text-slate-500">About</p>
+              <p className="text-sm leading-relaxed text-slate-900">
                 {user.bio}
               </p>
             </div>
@@ -155,30 +134,26 @@ const Profile = () => {
           {editMode && (
             <form onSubmit={handleUpdateProfile} className="mt-4 space-y-3">
               {updateError && (
-                <div
-                  className="text-sm rounded-xl px-4 py-2.5"
-                  style={{ background: "#F5973520", color: "var(--warn)", border: "1px solid var(--warn)" }}
-                >
+                <div className="text-sm rounded-xl px-4 py-2.5 bg-amber-50 text-amber-600 border border-amber-200">
                   {updateError}
                 </div>
               )}
 
               <div>
-                <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-dim)" }}>
+                <label className="text-xs font-medium mb-1.5 block text-slate-500">
                   Full name
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-                  style={{ background: "var(--surface-2)", border: "1px solid var(--border)", color: "var(--text)" }}
+                  className="w-full rounded-lg px-3 py-2 text-sm outline-none bg-slate-50 border border-slate-200 text-slate-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-dim)" }}>
-                  Bio <span style={{ color: "var(--text-dim)" }}>(max 500 characters)</span>
+                <label className="text-xs font-medium mb-1.5 block text-slate-500">
+                  Bio <span className="text-slate-500">(max 500 characters)</span>
                 </label>
                 <textarea
                   value={bio}
@@ -186,10 +161,9 @@ const Profile = () => {
                   rows={3}
                   maxLength={500}
                   placeholder="Tell the community about yourself, your skills, experience..."
-                  className="w-full rounded-lg px-3 py-2 text-sm outline-none resize-none"
-                  style={{ background: "var(--surface-2)", border: "1px solid var(--border)", color: "var(--text)" }}
+                  className="w-full rounded-lg px-3 py-2 text-sm outline-none resize-none bg-slate-50 border border-slate-200 text-slate-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
                 />
-                <p className="text-xs mt-1 text-right" style={{ color: "var(--text-dim)" }}>
+                <p className="text-xs mt-1 text-right text-slate-500">
                   {bio.length}/500
                 </p>
               </div>
@@ -200,9 +174,9 @@ const Profile = () => {
                   id="openToWork"
                   checked={openToWork}
                   onChange={(e) => setOpenToWork(e.target.checked)}
-                  className="w-4 h-4 accent-teal-400"
+                  className="w-4 h-4 accent-indigo-600"
                 />
-                <label htmlFor="openToWork" className="text-sm" style={{ color: "var(--text)" }}>
+                <label htmlFor="openToWork" className="text-sm text-slate-900">
                   Open to work
                 </label>
               </div>
@@ -210,8 +184,7 @@ const Profile = () => {
               <button
                 type="submit"
                 disabled={updating}
-                className="w-full rounded-full py-2 text-sm font-medium disabled:opacity-50"
-                style={{ background: "var(--accent)", color: "var(--bg)" }}
+                className="w-full rounded-full py-2 text-sm font-medium disabled:opacity-50 bg-indigo-600 text-white hover:bg-indigo-700 transition"
               >
                 {updating ? "Saving..." : "Save changes"}
               </button>
@@ -220,17 +193,16 @@ const Profile = () => {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 p-1 rounded-full mb-6 w-fit" style={{ background: "var(--surface)" }}>
+        <div className="flex gap-1 p-1 rounded-full mb-6 w-fit bg-white border border-slate-200">
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className="text-xs px-4 py-1.5 rounded-full transition"
-              style={{
-                color: activeTab === tab.key ? "var(--bg)" : "var(--text-dim)",
-                background: activeTab === tab.key ? "var(--accent)" : "transparent",
-                fontWeight: activeTab === tab.key ? 600 : 500,
-              }}
+              className={`text-xs px-4 py-1.5 rounded-full transition font-medium ${
+                activeTab === tab.key
+                  ? "bg-indigo-600 text-white font-semibold"
+                  : "bg-transparent text-slate-500 hover:bg-slate-100"
+              }`}
             >
               {tab.label} ({tab.count})
             </button>
@@ -239,22 +211,21 @@ const Profile = () => {
 
         {/* Posts */}
         {loading ? (
-          <p className="text-center py-10 text-sm" style={{ color: "var(--text-dim)" }}>
+          <p className="text-center py-10 text-sm text-slate-500">
             Loading...
           </p>
         ) : activeTab === "hrposts" ? (
           hrPosts.length === 0 ? (
             <div className="text-center py-16">
-              <p className="font-display text-lg mb-1" style={{ color: "var(--text)" }}>
+              <p className="font-display text-lg mb-1 text-slate-900">
                 No HR posts yet
               </p>
-              <p className="text-sm mb-4" style={{ color: "var(--text-dim)" }}>
+              <p className="text-sm mb-4 text-slate-500">
                 Share your first HR contact
               </p>
               <button
                 onClick={() => navigate("/create-post")}
-                className="text-sm px-4 py-2 rounded-full"
-                style={{ background: "var(--accent)", color: "var(--bg)" }}
+                className="text-sm px-4 py-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
               >
                 + Share contact
               </button>
@@ -264,22 +235,23 @@ const Profile = () => {
           )
         ) : communityPosts.length === 0 ? (
           <div className="text-center py-16">
-            <p className="font-display text-lg mb-1" style={{ color: "var(--text)" }}>
+            <p className="font-display text-lg mb-1 text-slate-900">
               No community posts yet
             </p>
-            <p className="text-sm mb-4" style={{ color: "var(--text-dim)" }}>
+            <p className="text-sm mb-4 text-slate-500">
               Share something with the community
             </p>
             <button
               onClick={() => navigate("/community/create")}
-              className="text-sm px-4 py-2 rounded-full"
-              style={{ background: "var(--accent)", color: "var(--bg)" }}
+              className="text-sm px-4 py-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
             >
               + Post
             </button>
           </div>
         ) : (
-          communityPosts.map((post) => <CommunityPostCard key={post._id} post={post} />)
+          communityPosts.map((post) => (
+            <CommunityPostCard key={post._id} post={post} />
+          ))
         )}
       </div>
     </div>

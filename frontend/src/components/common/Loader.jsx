@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+
 import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
@@ -10,35 +11,54 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const links = [
+    { to: "/feed", label: "Feed" },
+    { to: "/community", label: "Community" },
+    { to: "/companies", label: "Companies" },
+    { to: "/saved", label: "Saved" },
+  ];
+
   return (
-    <nav className="bg-gray-800 border-b border-gray-700 px-6 py-3 flex items-center justify-between">
-      <Link to="/feed" className="text-lg font-bold text-white">
-        Naukri
-      </Link>
+    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Brand */}
+          <Link
+            to="/feed"
+            className="flex items-center gap-2 text-lg font-bold text-slate-900"
+          >
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-sm font-bold text-white">
+              N
+            </span>
+            Naukri
+          </Link>
 
-      <div className="flex items-center gap-6">
-        <Link to="/feed" className="text-sm text-gray-300 hover:text-white">
-          Feed
-        </Link>
-        <Link to="/community" className="text-sm text-gray-300 hover:text-white">
-          Community
-        </Link>
-        <Link to="/companies" className="text-sm text-gray-300 hover:text-white">
-          Companies
-        </Link>
-        <Link to="/saved" className="text-sm text-gray-300 hover:text-white">
-          Saved
-        </Link>
-      </div>
+          {/* Links */}
+          <div className="flex items-center gap-1 sm:gap-2">
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-indigo-50 hover:text-indigo-600"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
-      <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-400">Hi, {user?.name}</span>
-        <button
-          onClick={handleLogout}
-          className="text-sm bg-gray-700 hover:bg-gray-600 text-white px-3 py-1.5 rounded-lg transition"
-        >
-          Logout
-        </button>
+          {/* User */}
+          <div className="flex items-center gap-3">
+            <span className="hidden text-sm text-slate-500 sm:inline">
+              Hi, {user?.name}
+            </span>
+            <button
+              onClick={handleLogout}
+              className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
   );

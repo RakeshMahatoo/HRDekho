@@ -4,12 +4,6 @@ import api from "../../api/axios";
 
 const ROLES = ["Frontend", "Backend", "Full Stack", "DevOps", "Data", "Design", "Mobile", "Other"];
 
-const inputStyle = {
-  background: "var(--surface-2)",
-  border: "1px solid var(--border)",
-  color: "var(--text)",
-};
-
 const HrPostForm = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -48,18 +42,18 @@ const HrPostForm = () => {
   };
 
   const Label = ({ children, required }) => (
-    <label className="text-xs font-medium mb-1.5 block" style={{ color: "var(--text-dim)" }}>
-      {children} {required && <span style={{ color: "var(--warn)" }}>*</span>}
+    <label className="block text-xs font-medium text-slate-600 mb-1.5">
+      {children} {required && <span className="text-indigo-500">*</span>}
     </label>
   );
 
+  const inputClass =
+    "w-full rounded-lg bg-slate-50 border border-slate-200 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100";
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 space-y-5">
       {error && (
-        <div
-          className="text-sm rounded-xl px-4 py-2.5"
-          style={{ background: "#F5973520", color: "var(--warn)", border: "1px solid var(--warn)" }}
-        >
+        <div className="rounded-lg bg-rose-50 border border-rose-200 px-4 py-3 text-sm text-rose-600">
           {error}
         </div>
       )}
@@ -71,10 +65,8 @@ const HrPostForm = () => {
             name="companyName"
             value={form.companyName}
             onChange={handleChange}
-            required
-            placeholder="e.g. Infosys"
-            className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-            style={inputStyle}
+            placeholder="e.g. Google"
+            className={inputClass}
           />
         </div>
         <div>
@@ -83,10 +75,8 @@ const HrPostForm = () => {
             name="hrName"
             value={form.hrName}
             onChange={handleChange}
-            required
-            placeholder="e.g. Priya Mehta"
-            className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-            style={inputStyle}
+            placeholder="e.g. Priya Sharma"
+            className={inputClass}
           />
         </div>
       </div>
@@ -98,8 +88,7 @@ const HrPostForm = () => {
             name="role"
             value={form.role}
             onChange={handleChange}
-            className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-            style={inputStyle}
+            className={inputClass}
           >
             {ROLES.map((r) => (
               <option key={r} value={r}>
@@ -114,52 +103,44 @@ const HrPostForm = () => {
             name="jobTitle"
             value={form.jobTitle}
             onChange={handleChange}
-            required
-            placeholder="e.g. Senior React Developer"
-            className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-            style={inputStyle}
+            placeholder="e.g. Senior Frontend Engineer"
+            className={inputClass}
           />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <Label required>City / remote</Label>
+          <Label>City / remote</Label>
           <input
             name="city"
             value={form.city}
             onChange={handleChange}
-            required
-            placeholder="e.g. Bangalore or Remote"
-            className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-            style={inputStyle}
+            placeholder="e.g. Bangalore / Remote"
+            className={inputClass}
           />
         </div>
         <div>
-          <Label required>HR phone number</Label>
+          <Label>HR phone number</Label>
           <input
             name="hrPhone"
             value={form.hrPhone}
             onChange={handleChange}
-            required
-            placeholder="+91 XXXXX XXXXX"
-            className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-            style={inputStyle}
+            placeholder="e.g. +91 98765 43210"
+            className={inputClass}
           />
         </div>
       </div>
 
       <div>
-        <Label required>Job description</Label>
+        <Label>Job description</Label>
         <textarea
           name="jobDescription"
           value={form.jobDescription}
           onChange={handleChange}
-          required
           rows={3}
-          placeholder="What does this role involve day-to-day?"
-          className="w-full rounded-lg px-3 py-2 text-sm outline-none resize-none"
-          style={inputStyle}
+          placeholder="Briefly describe the role and responsibilities"
+          className={`${inputClass} resize-none`}
         />
       </div>
 
@@ -171,8 +152,7 @@ const HrPostForm = () => {
           onChange={handleChange}
           rows={3}
           placeholder="What did they ask you?"
-          className="w-full rounded-lg px-3 py-2 text-sm outline-none resize-none"
-          style={inputStyle}
+          className={`${inputClass} resize-none`}
         />
       </div>
 
@@ -184,8 +164,7 @@ const HrPostForm = () => {
             value={form.salaryRange}
             onChange={handleChange}
             placeholder="e.g. ₹8L - ₹12L"
-            className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-            style={inputStyle}
+            className={inputClass}
           />
         </div>
         <div>
@@ -195,8 +174,7 @@ const HrPostForm = () => {
             value={form.companyWebsite}
             onChange={handleChange}
             placeholder="careers.company.com"
-            className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-            style={inputStyle}
+            className={inputClass}
           />
         </div>
       </div>
@@ -208,16 +186,14 @@ const HrPostForm = () => {
           value={form.hrEmail}
           onChange={handleChange}
           placeholder="priya@company.com"
-          className="w-full rounded-lg px-3 py-2 text-sm outline-none"
-          style={inputStyle}
+          className={inputClass}
         />
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full py-2.5 text-sm font-medium transition disabled:opacity-50"
-        style={{ background: "var(--accent)", color: "var(--bg)" }}
+        className="w-full rounded-full bg-indigo-600 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:opacity-50"
       >
         {loading ? "Sharing..." : "Share contact"}
       </button>
